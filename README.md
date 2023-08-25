@@ -1,4 +1,4 @@
-This module allows paragraphs to be attached to nodes during a feed import.
+This module allows paragraphs to be attached to entities during a feed import.
 
 It does this by adding an entity presave event to the import process and then
 matching paragraph feed item guid with entity feed item guid.
