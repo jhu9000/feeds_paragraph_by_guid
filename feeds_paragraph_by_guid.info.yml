@@ -1,0 +1,7 @@
+name: Feeds Paragraph by GUID
+type: module
+description: 'Sets paragraphs to node paragraph fields by matching feeds item guid.'
+core_version_requirement: ^9 || ^10
+package: Feeds
+dependencies:
+  - feeds:feeds

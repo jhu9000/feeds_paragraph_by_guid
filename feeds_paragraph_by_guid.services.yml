@@ -1,0 +1,5 @@
+services:
+  feeds_paragraph_by_guid.event_subscriber:
+    class: Drupal\feeds_paragraph_by_guid\EventSubscriber\EventSubscriber
+    tags:
+      - { name: event_subscriber }
