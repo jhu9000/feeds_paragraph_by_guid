@@ -3,10 +3,10 @@ This module allows paragraphs to be attached to nodes during a feed import.
 It does this by adding an entity presave event to the import process and then
 matching paragraph feed item guid with entity feed item guid.
 
-Only the node entity type is supported currently.
+The entity feed must map a feed item guid.
 
-Node feeds must map a feed item guid.
 The simplest guid could be: [node id]
+
 A more complex guid could take into account imports from multiple sites and
 be prefixed with a site key: [site key]-[nid]
 
@@ -20,7 +20,8 @@ including [delta]) ascending.
 
 The resulting paragraphs are set to the entity paragraph field.
 
-Paragraph feed imports should run before node feed imports.
+Paragraph feeds imports should run beforehand so that the paragraphs exist for
+other feeds to lookup.
 
-Node imports may skip saving if it deems that a node has no changes. This means
-that in some situations the node feed setting `Force Update` should be enabled.
+The presave event only triggers if feeds detects there are changes. This means
+that in some situations the feed setting `Force Update` should be enabled.

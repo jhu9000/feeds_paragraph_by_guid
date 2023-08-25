@@ -27,12 +27,12 @@ class EventSubscriber implements EventSubscriberInterface {
    */
   public function entityPresave(EntityEvent $event) {
     $entity = $event->getEntity();
-    $entity_type = $entity->getEntityTypeId();
     $guid = @$entity->feeds_item[0]->guid;
-    if ($guid && $entity_type == 'node') {
-      $bundle = $entity->bundle();
+    if ($guid) {
       $database = \Drupal::database();
       $entity_field_manager = \Drupal::service('entity_field.manager');
+      $entity_type = $entity->getEntityTypeId();
+      $bundle = $entity->bundle();
       /** \Drupal\Core\Field\FieldDefinitionInterface */
       $fields = $entity_field_manager->getFieldDefinitions($entity_type, $bundle);
       foreach ($fields as $name => $field) {
@@ -42,7 +42,7 @@ class EventSubscriber implements EventSubscriberInterface {
         $target_type = $field_storage->getSetting('target_type');
         if ($type == 'entity_reference_revisions' && $target_type == 'paragraph') {
           $query = $database->query("
-            SELECT entity_id, revision_id
+            SELECT feeds_item_guid, entity_id, revision_id
             FROM {paragraph__feeds_item}
             WHERE feeds_item_guid LIKE :feeds_item_guid
             ORDER BY feeds_item_guid ASC
@@ -53,12 +53,20 @@ class EventSubscriber implements EventSubscriberInterface {
           if ($result) {
             $paragraphs = [];
             foreach ($result as $record) {
-              $paragraphs[] = [
-                'target_id' => $record->entity_id,
-                'target_revision_id' => $record->revision_id
-              ];
+              // Unfortunately, the db query above is written to be compatible
+              // with various databases and can return extra results of nested
+              // paragraphs, so this secondary check using regex is required
+              // to filter on only the direct child.
+              if (preg_match('/^'.$guid.'-'.$name.'-[0-9]+$/', $record->feeds_item_guid)) {
+                $paragraphs[] = [
+                  'target_id' => $record->entity_id,
+                  'target_revision_id' => $record->revision_id
+                ];
+              }
             }
-            $entity->set($name, $paragraphs);
+            if (!empty($paragraphs)) {
+              $entity->set($name, $paragraphs);
+            }
           }
         }
       }
