@@ -1,6 +1,6 @@
 {
   "name": "jhu9000/feeds_paragraph_by_guid",
-  "description": "Sets paragraphs to node paragraph fields by matching feeds item guid",
+  "description": "Sets paragraphs to entity fields by matching feeds item guid",
   "type": "drupal-module",
   "authors": [
     {
