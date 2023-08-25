@@ -11,11 +11,11 @@ A more complex guid could take into account imports from multiple sites and
 be prefixed with a site key: [site key]-[nid]
 
 Paragraph feeds must map a feed item guid with this specific pattern:
-[node feed item guid]-[field machine name]-[delta]
+[entity feed item guid]-[field machine name]-[delta]
 
 The entity presave event will loop through every field. For each paragraph
 field it will query the database for any paragraph feed items that match
-[node feed item guid]-[field machine name] sorted by the full guid (ie.
+[entity feed item guid]-[field machine name] sorted by the full guid (ie.
 including [delta]) ascending.
 
 The resulting paragraphs are set to the entity paragraph field.
