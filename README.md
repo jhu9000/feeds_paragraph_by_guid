@@ -3,6 +3,8 @@ This module allows paragraphs to be attached to entities during a feed import.
 It does this by adding an entity presave event to the import process and then
 matching paragraph feed item guid with entity feed item guid.
 
+Feed item guid mapping should be set as "unique" so duplicates are not created.
+
 The entity feed must map a feed item guid.
 
 The simplest guid could be: [node id]
