@@ -37,6 +37,7 @@ Node page feed mapping
 - title, json source: title
 
 Node page feed json import file
+```
 {
   "0": {
     "guid": "nid-1",
@@ -47,12 +48,13 @@ Node page feed json import file
     "title": "page 2"
   }
 }
-
+```
 Paragraph feed mapping
 - feeds item guid, json source: guid
 - field_paragraph_title, json source: title
 
 Paragraph feed json import file
+```
 {
   "0": {
     "guid": "nid-1-field_paragraphs-0",
@@ -67,6 +69,7 @@ Paragraph feed json import file
     "title": "paragraph 2a"
   },
 }
+```
 
 Running the paragraph feeds import will create 3 paragraph entities.
 
