@@ -29,7 +29,7 @@ class EventSubscriber implements EventSubscriberInterface {
     $guid = @$entity->feeds_item[0]->guid;
     if ($guid) {
       /** \Drupal\Core\Field\FieldDefinitionInterface */
-      $fields = $entity->getFieldDefinitions($entity_type, $bundle);
+      $fields = $entity->getFieldDefinitions();
       foreach ($fields as $name => $field) {
         /** \Drupal\Core\Field\FieldStorageDefinitionInterface */
         $field_storage = $field->getFieldStorageDefinition();
